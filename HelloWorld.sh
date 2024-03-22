@@ -33,3 +33,5 @@ elif [ "$a" -eq "$b" ]; then
 else
     echo 'a is less than b'
 fi
+
+echo 'This extra line is unnecessary, the merge should remove this line.'
