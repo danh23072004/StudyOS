@@ -8,4 +8,16 @@ welcome_function() {
     done
 }
 
+a=0
+
+while_loop() {
+    while [[ $a -le 5 ]]
+    do
+        echo 'Value of variable a is: ' "$a"
+        ((a += 1))
+    done
+}
+
 welcome_function
+
+while_loop
