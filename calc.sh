@@ -19,10 +19,10 @@ calculate(){
         result=$((a - b))
         ;;
     'x')
-        result=$((a * b))
+        result=$(echo "$a * $b" | bc -l)
         ;;
     '/')
-        result=$((a / b))
+        result=$(echo "$a / $b" | bc -l)
         ;;
     '%')
         result=$((a % b))
@@ -33,12 +33,12 @@ calculate(){
 showOutput(){
     echo 'The expression is: '"$a" "$op" "$b"
 
-    echo "The result is: $result"
+    #printf "%.2f" "$result"
+    echo "$result"
 }
 
 readInput
 
 calculate
 
-
-
+showOutput
