@@ -26,8 +26,7 @@ showHIST() {
     echo '' 
 }
 
-histCountLine=0
-hist=''
+
 appendHIST() {
     if [ $histCountLine -le 5 ]; then
     {
@@ -76,7 +75,7 @@ calculate(){
         result=$(echo "$a / $b" | bc -l)
         ;;
     '%')
-        result=$(echo "$a % $b" | bc -l)
+        result=$(echo "$((a % b))" | bc -l)
         ;;
     esac
 }
@@ -88,7 +87,10 @@ showOutput(){
     read -n 1 -s -r
 }
 
-# Main program here
+# -- Main program here --
+
+histCountLine=0
+hist=''
 
 readInput
 
