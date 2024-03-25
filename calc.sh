@@ -31,14 +31,23 @@ calculate(){
 }
 
 showOutput(){
-    echo 'The expression is: '"$a" "$op" "$b"
-
+    #echo 'The expression is: '"$a" "$op" "$b"
     #printf "%.2f" "$result"
-    echo "$result"
+    printf "%.2f \n" "$result"
+    read -n 1 -s -r
 }
+
+showHIST(){
+    echo 'HIST'
+}
+
+# Main program here
 
 readInput
 
-calculate
-
-showOutput
+while [[ $a != "EXIT" ]]
+do
+    calculate
+    showOutput
+    readInput
+done
