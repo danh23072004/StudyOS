@@ -3,13 +3,13 @@
 # -- ANS --
 
 ifANS() {
-    if [ "$a" == "ANS" ]; then
+    if [[ "$a" == "ANS" ]]; then
     {
         a=$result
     }
     fi
     
-    if [ "$b" == "ANS" ]; then
+    if [[ "$b" == "ANS" ]]; then
     {
         b=$result
     }
@@ -18,24 +18,17 @@ ifANS() {
 
 # -- HIST --
 
-ifHIST() {
-    echo "$hist"
-}
-
-showHIST() {
-    echo '' 
-}
-
 
 appendHIST() {
     if [ $histCountLine -le 5 ]; then
     {
-        hist="$hist""$input"'\n'
-        ((var+=1))
+        hist="$hist"'\n'"${arr[0]}"' '"${arr[1]}"' '"${arr[2]}"
+        ((histCountLine+=1))
+        echo $histCountLine
     }
     else
     {
-        hist="$hist""$input"'\n'
+        hist="$hist"'\n'"${arr[0]}"' '"${arr[1]}"' '"${arr[2]}"
     }
     fi
 
@@ -48,14 +41,23 @@ readInput() {
     read -r input
     read -r -a arr <<< "$input"
 
-    # append history command to variable "hist"
-    appendHIST
+    if [[ $input == "HIST" ]]; then
+    {
+        echo -e "$hist"
+        read -n 1 -s -r
+    }
+    else
+    {
+        # append history command to variable "hist"
+        appendHIST
 
-    a="${arr[0]}"
-    op="${arr[1]}"
-    b="${arr[2]}"
+        a="${arr[0]}"
+        op="${arr[1]}"
+        b="${arr[2]}"
 
-    ifANS
+        ifANS
+    }
+    fi
 }
 
 # -- CALCULATE --
@@ -96,7 +98,11 @@ readInput
 
 while [[ $input != "EXIT" ]]
 do
-    calculate
-    showOutput
+    if [[ $input != "HIST" ]]; then
+    {
+        calculate
+        showOutput
+    }
+    fi
     readInput
 done
