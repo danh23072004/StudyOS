@@ -1,20 +1,17 @@
 #!/bin/bash
 
 readInput() {
+    echo -n '>> '
     read -r input
     read -r -a arr <<< "$input"
+
+    a="${arr[0]}"
+    op="${arr[1]}"
+    b="${arr[2]}"
 }
 
-readInput
-
-a="${arr[0]}"
-op="${arr[1]}"
-b="${arr[2]}"
-
-echo 'The expression is: '"$a" "$op" "$b"
-
-
-case $op in
+calculate(){
+    case $op in
     '+')
         result=$((a + b))
         ;;
@@ -30,6 +27,18 @@ case $op in
     '%')
         result=$((a % b))
         ;;
-esac
+    esac
+}
 
-echo "The result is: $result"
+showOutput(){
+    echo 'The expression is: '"$a" "$op" "$b"
+
+    echo "The result is: $result"
+}
+
+readInput
+
+calculate
+
+
+
