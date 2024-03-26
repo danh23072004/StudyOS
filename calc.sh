@@ -5,13 +5,13 @@
 ifANS() {
     if [[ "$a" == "ANS" ]]; then
     {
-        a=$result
+        a=$ans
     }
     fi
     
     if [[ "$b" == "ANS" ]]; then
     {
-        b=$result
+        b=$ans
     }
     fi
 }
@@ -20,15 +20,15 @@ ifANS() {
 
 
 appendHIST() {
-    if [ $histCountLine -le 5 ]; then
+    if [ $histCountLine -lt 5 ]; then
     {
-        hist="$hist"'\n'"${arr[0]}"' '"${arr[1]}"' '"${arr[2]}"
+        hist="$hist""${arr[0]}"' '"${arr[1]}"' '"${arr[2]}"'\n'
         ((histCountLine+=1))
-        echo $histCountLine
     }
     else
     {
-        hist="$hist"'\n'"${arr[0]}"' '"${arr[1]}"' '"${arr[2]}"
+        hist="$hist""${arr[0]}"' '"${arr[1]}"' '"${arr[2]}"'\n'
+        hist="${hist#*'\n'}"
     }
     fi
 
@@ -43,7 +43,8 @@ readInput() {
 
     if [[ $input == "HIST" ]]; then
     {
-        echo -e "$hist"
+        local printhist="${hist:0:-2}"
+        echo -e "$printhist"
         read -n 1 -s -r
     }
     else
@@ -62,7 +63,15 @@ readInput() {
 
 # -- CALCULATE --
 
-calculate(){
+division() {
+    if [[ $b == 0 ]]; then
+        result='MATH ERROR'
+    else
+        result=$(echo "$a / $b" | bc -l)
+    fi
+}
+
+calculate() {
     case $op in
     '+')
         result=$(echo "$a + $b" | bc -l)
@@ -74,25 +83,48 @@ calculate(){
         result=$(echo "$a * $b" | bc -l)
         ;;
     '/')
-        result=$(echo "$a / $b" | bc -l)
+        division
         ;;
     '%')
         result=$(echo "$((a % b))" | bc -l)
         ;;
+    *)
+
     esac
+
+    if [[ $result != 'MATH ERROR' && $result != 'SYNTAX ERROR' ]]; then
+    {
+        # echo 'value of result '"$result"
+        # echo 'value of ans before change: '"$ans"
+        ans="$result"
+        # echo 'value of ans after change: '"$ans"
+    }
+    fi
 }
 
 showOutput(){
     #echo 'The expression is: '"$a" "$op" "$b"
     #printf "%.2f" "$result"
-    printf "%.2f \n" "$result"
+    if [[ $result != 'MATH ERROR' && $result != 'SYNTAX ERROR' ]]; then
+    {
+        printf "%.2f \n" "$result"
+    }
+    else
+        echo "$result"
+    fi
+    
+    #echo "$result"
     read -n 1 -s -r
 }
 
 # -- Main program here --
 
+
 histCountLine=0
 hist=''
+ans=0 # for storing output after result
+result=0 # for storing output after perform execution
+#output=0
 
 readInput
 
