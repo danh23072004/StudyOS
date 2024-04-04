@@ -89,7 +89,6 @@ calculate() {
         result=$(echo "$((a % b))" | bc -l)
         ;;
     *)
-
     esac
 
     if [[ $result != 'MATH ERROR' && $result != 'SYNTAX ERROR' ]]; then
