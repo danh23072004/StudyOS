@@ -55,7 +55,7 @@ int main(void)
 
     segfault();
 
-    // Wait until a signal is delivered.
+    // Wait until a signal is deslivered.
 
     // pause();
 
