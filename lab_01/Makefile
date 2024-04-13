@@ -6,7 +6,7 @@ all:	$(TARGET)
 $(TARGET):	calc.o
 	$(CC)	-o	$(TARGET)	calc.o
 
-calc.o:	calc.c	calc.h
+calc.o:	calc.c
 	$(CC)	-c	calc.c
 
 clean:
