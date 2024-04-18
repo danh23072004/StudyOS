@@ -1,0 +1,11 @@
+{
+    "files.associations": {
+        "*.css": "tailwindcss",
+        "*.scss": "tailwindcss",
+        "stdio.h": "c",
+        "pthread.h": "c",
+        "shm.h": "c",
+        "string.h": "c",
+        "stdlib.h": "c"
+    }
+}
