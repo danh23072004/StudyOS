@@ -52,7 +52,9 @@ int main(int argc, char *argv[])
 		exit(1);
 	}
 	printf("shared memory mm:  %p\n", shm);
-	sprintf(shm, "hello DANH\n");
+	sprintf(shm, "\nhello DANH\n");
+	sprintf(shm + 12, "hello HUYNH\n");
+
 	printf("shared memory content:  %s\n", shm);
 	sleep(10);
 

@@ -15,6 +15,8 @@ int main(int argc, char *argv[])
 {
 	int shmid;
 	char *shm;
+
+	// Create a shared memory segment
 	shmid = shmget(SHM_KEY, 1000, 0644 | IPC_CREAT);
 	if (shmid < 0)
 	{
@@ -25,6 +27,7 @@ int main(int argc, char *argv[])
 	{
 		printf("shared memory ID:  %d\n", shmid);
 	}
+	// Attach the shared memory segment
 	shm = (char *)shmat(shmid, 0, 0);
 	if (shm == (char *)-1)
 	{
@@ -32,6 +35,7 @@ int main(int argc, char *argv[])
 		exit(1);
 	}
 
+	
 	printf("shared memory mm:  %p\n", shm);
 	if (shm != 0)
 	{
